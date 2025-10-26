@@ -77,8 +77,8 @@ if __name__ == "__main__":
     mse = MSE()
 
     losses = []
-    for _ in range(50):
-        for x, y in zip(x_train, y_train):
+    for _ in range(10_000):
+        for x, y in zip(np.split(x_train, 50), np.split(y_train, 50)):
             mlp.backprop(x, y)
         losses.append(mse(mlp(x_test), y_test))
 
