@@ -72,9 +72,13 @@ if __name__ == "__main__":
     from datasets import generate_blobs
     import matplotlib.pyplot as plt
 
-    x_train, y_train, x_test, y_test = generate_blobs(5000, 4, 4, 5)
+    features: int = 8
+    classes: int = 4
 
-    mlp = MLP(4, 16, 4, 1e-4)
+    x_train, y_train, x_test, y_test = generate_blobs(
+        5000, features, classes, 5)
+
+    mlp = MLP(features, 16, classes, 1e-4)
 
     losses = []
     for _ in tqdm(range(10_000)):
