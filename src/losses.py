@@ -13,3 +13,11 @@ class MSE(Loss):
 
     def grad(self, x: npt.NDArray, y: npt.NDArray) -> npt.NDArray:
         return (x - y) * 2 / y.shape[0]
+
+
+class CategoricalCrossEntroy(Loss):
+    def __call__(self, x: npt.NDArray, y: npt.NDArray) -> float:
+        return -float(np.sum(np.log(np.max(x * y, axis=-1))))
+
+    def grad(self, x: npt.NDArray, y: npt.NDArray) -> npt.NDArray:
+        return x - y
