@@ -1,6 +1,7 @@
 import numpy as np
 import numpy.typing as npt
 from typing import Tuple
+from tqdm import tqdm
 
 from activations import ReLU, Softmax
 from losses import CategoricalCrossEntroy
@@ -25,7 +26,7 @@ class MLP():
 
         self.relu = ReLU()
         self.softmax = Softmax()
-        self.mse = MSE()
+        self.loss = CategoricalCrossEntroy()
 
     def feedforward_layers(self, x: npt.NDArray) -> Tuple[npt.NDArray, npt.NDArray, npt.NDArray]:
         z0 = x @ self.hidden_weights + self.hidden_bias
@@ -76,7 +77,7 @@ if __name__ == "__main__":
     mlp = MLP(4, 16, 4, 1e-4)
 
     losses = []
-    for _ in range(10_000):
+    for _ in tqdm(range(10_000)):
         for x, y in zip(np.split(x_train, 50), np.split(y_train, 50)):
             mlp.backprop(x, y)
         losses.append(mlp.loss(mlp(x_test), y_test))
