@@ -57,7 +57,7 @@ if __name__ == "__main__":
     plt.scatter(x_test[:, 0], x_test[:, 1], c=pred + 2)
     # Show the decision boundary
     plt.axline((0, -(perceptron.weights[0]/perceptron.weights[2])), slope=-
-               perceptron.weights[1]/perceptron.weights[2], color='C0', label='by slope')
+               perceptron.weights[1]/perceptron.weights[2])
     plt.xlabel('Feature 1')
     plt.ylabel('Feature 2')
     plt.show()
