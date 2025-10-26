@@ -39,7 +39,7 @@ if __name__ == "__main__":
     import matplotlib.pyplot as plt
     from losses import MSE
 
-    x_train, y_train, x_test, y_test = generate_blobs(one_hot=False)
+    x_train, y_train, x_test, y_test = generate_blobs(one_hot=False, seed=9)
 
     perceptron = Perceptron(2)
 
