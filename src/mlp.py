@@ -3,7 +3,7 @@ import numpy.typing as npt
 from typing import Tuple
 
 from activations import ReLU, Softmax
-from losses import MSE
+from losses import CategoricalCrossEntroy
 
 
 class MLP():
@@ -48,7 +48,7 @@ class MLP():
 
         z0, a0, z1 = self.feedforward_layers(x)
 
-        dz1 = self.mse.grad(z1, y)
+        dz1 = self.loss.grad(z1, y)
         dw1 = a0.T @ dz1 / batches
         db1 = np.sum(dz1, axis=0, keepdims=True)
 
@@ -73,14 +73,13 @@ if __name__ == "__main__":
 
     x_train, y_train, x_test, y_test = generate_blobs(5000, 4, 4, 5)
 
-    mlp = MLP(4, 16, 4, 1e-2)
-    mse = MSE()
+    mlp = MLP(4, 16, 4, 1e-4)
 
     losses = []
     for _ in range(10_000):
         for x, y in zip(np.split(x_train, 50), np.split(y_train, 50)):
             mlp.backprop(x, y)
-        losses.append(mse(mlp(x_test), y_test))
+        losses.append(mlp.loss(mlp(x_test), y_test))
 
     pred = mlp(x_test)
 
